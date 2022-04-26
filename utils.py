@@ -1,7 +1,7 @@
-from cProfile import label
 import os
 import cv2
 import numpy as np
+import tensorflow as tf
 
 training_images = os.path.join('data_road', 'training', 'image_2')
 training_labels = os.path.join('data_road', 'training', 'gt_image_2')
@@ -39,3 +39,18 @@ def getfilelist():
         filelist[i, 1] = labelname
     return filelist
 
+def getprocessedfilelist():
+    x = set()
+    y = set()
+    image_files = []
+    label_files = [os.path.join(processed_images, x) for x in os.listdir(processed_images) if x.endswith('.npy')]
+    def getimagefile(labelfile):
+        basename = os.path.basename(labelfile)
+        e = basename.split('_')
+        suffix = e[-1].split('.')[0]
+        imgfile = f'{e[0]}_{e[2]}_{suffix}.jpg'
+        return imgfile
+
+    image_files = np.array([os.path.join(processed_images, getimagefile(x)) for x in label_files])
+    labels = np.array([np.load(x) for x in label_files])
+    return image_files, labels
