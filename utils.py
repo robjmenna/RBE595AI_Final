@@ -16,12 +16,25 @@ def preprocessdata(label_img):
         for j in range(label_img.shape[0]-1, -1, -1):
             pixel = (255, 0, 255)
             if pixel == tuple(label_img[j,i,:]):
-                found_road = True
-                output[i] = output[i] + 1
+                output[j,i] = 1
             else:
                 break
     # need to flip the line because (0,0) is at the top of the image
     return np.abs(output - label_img.shape[0])
+
+def preprocessdataseg(label_img):
+    '''Transform a label image into an array label'''
+    output = np.zeros((384,1248,2))
+    for i in range(label_img.shape[1]):
+        for j in range(label_img.shape[0]):
+            pixel = (255, 0, 255)
+            if pixel == tuple(label_img[j,i,:]):
+                output[j,i] = np.array([0,1])
+            else:
+                output[j,i] = np.array([1,0])
+
+    # need to flip the line because (0,0) is at the top of the image
+    return output
 
 def getfilelist():
     '''Return a 2d array of the images and their labels'''
