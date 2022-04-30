@@ -2,7 +2,7 @@
 
 
 This repository holds the code that we used to train each of our models on the KITTI [dataset](http://www.cvlibs.net/datasets/kitti/eval_road.php). We experimented with a number of architectures, but the most successful was the FCN based on the work by Luca Caltagirone et al. To see a demonstration of each of the models, look at inference.ipynb
----
+
 GitHub: https://github.com/robjmenna/RBE595AI_Final
 ---
 ## Contents
